@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 hash curl || exit 1
-hash jq || exit 2
+hash jq || exit 1
 
 env_file="$(readlink -f "$(dirname "$0")")/.env"
 [ -f "$env_file" ] && source "$env_file"
@@ -35,8 +35,8 @@ retrieve_domain() {
     )"
     if [ "$(echo "$r" | jq -r '.status')" == ERROR ]
     then
-        echo "$r" | jq
-        exit 3
+        echo "$r" >&2
+        exit 1
     else
         chain_path="$target_dir/certificatechain.pem"
         echo "$r" | jq -r '.certificatechain' > "$chain_path"
