@@ -15,7 +15,7 @@ Environment variables:
     PORKBUN_SECRET_API_KEY -- Your secret API key
     PORKBUN_SSL_DIR -- Path to the certs directory (default: /etc/ssl/porkbun/)
 Documentation:
-    https://porkbun.com/api/json/v3/documentation#SSL%20Retrieve%20Bundle%20by%20Domain
+    https://api.porkbun.com/api/json/v3/documentation#SSL%20Retrieve%20Bundle%20by%20Domain
 "
 domains="${PORKBUN_DOMAINS?"$usage_msg"}"
 apikey="${PORKBUN_API_KEY?"$usage_msg"}"
@@ -31,7 +31,7 @@ retrieve_domain() {
         -X POST \
         -H "Content-Type: application/json" \
         -d "{\"secretapikey\":\"$secret\",\"apikey\":\"$apikey\"}" \
-        https://porkbun.com/api/json/v3/ssl/retrieve/$domain \
+        https://api.porkbun.com/api/json/v3/ssl/retrieve/$domain \
     )"
     if [ "$(echo "$r" | jq -r '.status')" == ERROR ]
     then
